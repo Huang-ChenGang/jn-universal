@@ -1,35 +1,35 @@
 plugins {
-    id 'org.springframework.boot' version '2.3.7.RELEASE'
+    id 'org.springframework.boot' version '2.3.7.RELEASE' apply false
     id 'io.spring.dependency-management' version '1.0.10.RELEASE'
     id 'java'
 }
 
-group = 'com.jn'
-version = '2020.12.0-SNAPSHOT'
-sourceCompatibility = '11'
-
-repositories {
-    mavenCentral()
+allprojects {
+    group = 'com.jn'
+    version = '2020.12.0-SNAPSHOT'
+    sourceCompatibility = '11'
 }
 
-dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter'
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'io.spring.dependency-management'
 
-    annotationProcessor 'org.projectlombok:lombok:1.18.16'
-    compileOnly 'org.projectlombok:lombok:1.18.16'
-    testAnnotationProcessor 'org.projectlombok:lombok:1.18.16'
-    testCompileOnly 'org.projectlombok:lombok:1.18.16'
-
-    testImplementation('org.springframework.boot:spring-boot-starter-test') {
-        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    repositories {
+        mavenCentral()
     }
-}
 
-configurations.all {
-    resolutionStrategy.cacheDynamicVersionsFor 10, 'minutes'
-    resolutionStrategy.cacheChangingModulesFor 10, 'minutes'
-}
+    dependencyManagement {
+        dependencies {
+            dependency 'org.projectlombok:lombok:1.18.16'
+        }
+    }
 
-test {
-    useJUnitPlatform()
+    configurations.all {
+        resolutionStrategy.cacheDynamicVersionsFor 10, 'minutes'
+        resolutionStrategy.cacheChangingModulesFor 10, 'minutes'
+    }
+
+    test {
+        useJUnitPlatform()
+    }
 }

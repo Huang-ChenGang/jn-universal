@@ -1,1 +1,3 @@
 rootProject.name = 'jn-universal'
+include 'universal-application'
+include 'universal-dto'
